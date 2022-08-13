@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>New company</h1>
+    <a href="{% url 'list' %}">List of companies</a>
+    <form action="{% url 'new' %}" method="POST">
+        {% csrf_token %}
+        <label>
+            Company name:
+            <input type="text" name="company_name" />
+        </label>
+        <button type="submit">Create company</button>
+    </form>
+    <div>{{ message }}</div>
+</body>
+</html>

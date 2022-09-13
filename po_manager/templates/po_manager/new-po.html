@@ -8,43 +8,48 @@
 </head>
 <body>
     <h1>New PO</h1>
-    <a href="{% url 'list' %}">List of purchase orders</a>
-    <form action="{% url 'new' %}" method="POST">
+    <a href="{% url 'list-po' %}">List of purchase orders</a>
+    <form action="{% url 'new-po' %}" method="POST">
         {% csrf_token %}
-        <label>
-            Company id (TODO: make this a SELECT):
-            <input type="text" name="company_name" />
-        </label>
-        <section class="js-items-container"></section>
-        <button class="js-new-item">Add item</button>        
-        <button type="submit">Create company</button>
+        <div>
+            <label>
+                Company:
+                <select name="company_id" required>
+                {% for company in companies %}
+                    <option value="{{ company.id }}">
+                        {{ company.name }}
+                    </option>
+                {% endfor %}
+                </select>
+            </label>
+        </div>
+        <div>
+            <label>
+                Description of product/service:
+                <input type="text" name="description" required /> 
+            </label>
+        </div>
+        <div>
+            <label>
+                Amount ($):
+                <input type="number" name="amount" min="0" required /> 
+            </label>
+        </div>
+        <div>
+            <label>
+                Start date:
+                <input type="date" name="start_date" required /> 
+            </label>
+        </div>
+        <div>
+            <label>
+                End date:
+                <input type="date" name="end_date" required /> 
+            </label>
+        </div>        
+        <button type="submit">Create purchase order</button>
     </form>
     <div>{{ message }}</div> 
-    <script>
-let item_num = 1;
-let template = (event) => {  
-    event.preventDefault();
-    document.querySelector('.js-items-container').innerHTML += `
-    <div class="item-row">
-        <label>
-            Item name:
-            <input type="text" name="item-name-1" />
-        </label>
-        <label>
-            Quantity:
-            <input type="text" name="item-quantity-1" />
-        </label>        
-        <label>
-            Cost per item:
-            <input type="text" name="item-cost-1" />
-        </label> 
-    </div>    
-    `;
-}
-document
-    .querySelector('.js-new-item')
-    .addEventListener('click', template);
-
-    </script>   
+ 
 </body>
 </html>

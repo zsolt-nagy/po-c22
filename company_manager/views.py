@@ -7,7 +7,6 @@ def list(request):
     data = {
         'companies': companies
     }
-    print(data)
     return render(request, 'company_manager/list-companies.html', data)
 
 def new(request):
